@@ -1,0 +1,13 @@
+<h1><%= category.id ? "Edit Category" : "Add Category" %></h1>
+
+<form method="POST">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" value="<%= category.name || "" %>" required />
+
+  <label for="description">Description:</label>
+  <textarea name="description" id="description"><%= category.description || "" %></textarea>
+
+  <button type="submit">Save</button>
+</form>
+
+<a href="/categories">← Back to Categories</a>

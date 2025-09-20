@@ -1,0 +1,12 @@
+<h1>Categories</h1>
+
+<ul>
+  <% categories.forEach(cat => { %>
+    <li>
+      <a href="/categories/<%= cat.id %>"><%= cat.name %></a>
+      (<%= cat.item_count %> items)
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/categories/create" class="button">➕ Add Category</a>

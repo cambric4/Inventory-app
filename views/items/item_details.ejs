@@ -1,0 +1,16 @@
+<h1><%= item.name %></h1>
+
+<p><strong>Description:</strong> <%= item.description %></p>
+<p><strong>Price:</strong> $<%= item.price %></p>
+<p><strong>Stock Quantity:</strong> <%= item.stock_quantity %></p>
+<p>
+  <strong>Category:</strong>
+  <% if (item.category) { %>
+    <a href="/categories/<%= item.category.id %>"><%= item.category.name %></a>
+  <% } else { %>
+    No category
+  <% } %>
+</p>
+
+<a href="/items/<%= item.id %>/update" class="button">✏️ Edit</a>
+<a href="/items/<%= item.id %>/delete" class="button danger">🗑 Delete</a>

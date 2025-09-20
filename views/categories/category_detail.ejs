@@ -1,0 +1,21 @@
+<h1><%= category.name %></h1>
+
+<p><strong>Description:</strong> <%= category.description %></p>
+
+<h2>Items in this category</h2>
+<% if (items.length > 0) { %>
+  <ul>
+    <% items.forEach(item => { %>
+      <li>
+        <a href="/items/<%= item.id %>"><%= item.name %></a>
+        ($<%= item.price %>)
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>No items in this category.</p>
+<% } %>
+
+<a href="/categories/<%= category.id %>/update" class="button">✏️ Edit</a>
+<a href="/categories/<%= category.id %>/delete" class="button danger">🗑 Delete</a>
+

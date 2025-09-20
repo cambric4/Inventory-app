@@ -1,0 +1,18 @@
+<h1>Items</h1>
+
+<ul>
+  <% items.forEach(item => { %>
+    <li>
+      <a href="/items/<%= item.id %>"><%= item.name %></a> 
+      ($<%= item.price %>) -
+      <% if (item.category) { %>
+        <em><a href="/categories/<%= item.category.id %>"><%= item.category.name %></a></em>
+      <% } else { %>
+        <em>No category</em>
+      <% } %>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/items/create" class="button">➕ Add Item</a>
+
