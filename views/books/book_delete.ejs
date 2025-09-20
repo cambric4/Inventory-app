@@ -1,0 +1,11 @@
+<h1>Delete Book</h1>
+<p>Are you sure you want to delete <strong><%= book.title %></strong> by <%= book.author %>?</p>
+
+<form method="POST">
+  <label>Admin Password:</label>
+  <input type="password" name="admin_password" required>
+  <button type="submit" class="danger">Delete</button>
+</form>
+
+<a href="/books/<%= book.id %>">← Cancel</a>
+

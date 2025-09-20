@@ -1,0 +1,20 @@
+<h1><%= book.title %></h1>
+
+<p><strong>Author:</strong> <%= book.author %></p>
+<p><strong>Description:</strong> <%= book.description || "No description" %></p>
+<p><strong>Price:</strong> $<%= book.price %></p>
+<p><strong>Stock Quantity:</strong> <%= book.stock_quantity %></p>
+
+<p><strong>Genres:</strong>
+  <% if (book.genres && book.genres.length > 0) { %>
+    <% book.genres.forEach((genre, index) => { %>
+      <a href="/genres/<%= genre.id %>"><%= genre.name %></a><%= index < book.genres.length - 1 ? ", " : "" %>
+    <% }) %>
+  <% } else { %>
+    None
+  <% } %>
+</p>
+
+<a href="/books/<%= book.id %>/update" class="button">✏️ Edit Book</a>
+<a href="/books/<%= book.id %>/delete" class="button">🗑 Delete Book</a>
+<a href="/books" class="button">⬅ Back to Books</a>

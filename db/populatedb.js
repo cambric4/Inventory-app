@@ -1,46 +1,58 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-});
+const client = new Client({ connectionString: process.env.DATABASE_URL });
 
 async function populate() {
   await client.connect();
 
-  await client.query("DELETE FROM item");
-  await client.query("DELETE FROM category");
+  await client.query("DELETE FROM book");
+  await client.query("DELETE FROM genre");
 
-  const categories = await Promise.all([
-    client.query(
-      "INSERT INTO category (name, description) VALUES ($1, $2) RETURNING id",
-      ["Electronics", "Gadgets and devices"]
-    ),
-    client.query(
-      "INSERT INTO category (name, description) VALUES ($1, $2) RETURNING id",
-      ["Books", "Fiction and non-fiction"]
-    ),
-  ]);
+  const genresData = [
+    ["Fiction", "Fictional books"],
+    ["Non-Fiction", "Informative books"],
+    ["Science Fiction", "Books set in the future or alternate realities"],
+    ["Fantasy", "Books with magical or supernatural elements"],
+    ["Mystery", "Books with crime, investigation or suspense"],
+    ["Biography", "Life stories of real people"],
+    ["History", "Historical books"],
+    ["Children", "Books for children and young readers"]
+  ];
 
-  const [electronics, books] = categories.map((c) => c.rows[0].id);
+  const genres = await Promise.all(
+    genresData.map(([name, description]) =>
+      client.query(
+        "INSERT INTO genre (name, description) VALUES ($1, $2) RETURNING id",
+        [name, description]
+      )
+    )
+  );
 
+  const [fiction, nonfiction, scifi, fantasy] = genres.map(g => g.rows[0].id);
+
+  // Add some sample books
   await Promise.all([
     client.query(
-      "INSERT INTO item (name, description, price, stock_quantity, category_id) VALUES ($1, $2, $3, $4, $5)",
-      ["Laptop", "15-inch screen", 999.99, 10, electronics]
+      "INSERT INTO book (title, author, description, price, stock_quantity, genre_id) VALUES ($1,$2,$3,$4,$5,$6)",
+      ["The Great Gatsby", "F. Scott Fitzgerald", "Classic novel", 10.99, 5, fiction]
     ),
     client.query(
-      "INSERT INTO item (name, description, price, stock_quantity, category_id) VALUES ($1, $2, $3, $4, $5)",
-      ["Headphones", "Noise cancelling", 199.99, 25, electronics]
+      "INSERT INTO book (title, author, description, price, stock_quantity, genre_id) VALUES ($1,$2,$3,$4,$5,$6)",
+      ["Sapiens", "Yuval Noah Harari", "History of humankind", 15.99, 10, nonfiction]
     ),
     client.query(
-      "INSERT INTO item (name, description, price, stock_quantity, category_id) VALUES ($1, $2, $3, $4, $5)",
-      ["Novel", "Best-selling mystery book", 14.99, 50, books]
+      "INSERT INTO book (title, author, description, price, stock_quantity, genre_id) VALUES ($1,$2,$3,$4,$5,$6)",
+      ["Dune", "Frank Herbert", "Epic science fiction novel", 12.99, 7, scifi]
+    ),
+    client.query(
+      "INSERT INTO book (title, author, description, price, stock_quantity, genre_id) VALUES ($1,$2,$3,$4,$5,$6)",
+      ["Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Magical fantasy novel", 9.99, 15, fantasy]
     ),
   ]);
 
-  console.log("Database populated!");
+  console.log("Database populated with genres and books!");
   await client.end();
 }
 
-populate().catch((err) => console.error(err));
+populate().catch(console.error);

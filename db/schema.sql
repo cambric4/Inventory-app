@@ -1,17 +1,28 @@
-DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS category;
+-- Drop old tables if needed
+DROP TABLE IF EXISTS book_genre;
+DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS genre;
 
-CREATE TABLE category (
+-- Genres table
+CREATE TABLE genre (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
   description TEXT
 );
 
-CREATE TABLE item (
+-- Books table
+CREATE TABLE book (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  author VARCHAR(100),
   description TEXT,
-  price NUMERIC(10,2) NOT NULL CHECK (price > 0),
-  stock_quantity INTEGER DEFAULT 0 CHECK (stock_quantity >= 0),
-  category_id INTEGER NOT NULL REFERENCES category(id) ON DELETE RESTRICT
+  price NUMERIC(10,2),
+  stock_quantity INT DEFAULT 0
+);
+
+-- Create junction table for many-to-many relationship
+CREATE TABLE IF NOT EXISTS book_genre (
+  book_id INT REFERENCES book(id) ON DELETE CASCADE,
+  genre_id INT REFERENCES genre(id) ON DELETE CASCADE,
+  PRIMARY KEY (book_id, genre_id)
 );

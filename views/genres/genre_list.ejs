@@ -1,0 +1,12 @@
+<h1>Genres</h1>
+
+<ul>
+  <% genres.forEach(genre => { %>
+    <li>
+      <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
+      (<%= genre.book_count || 0 %> books)
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/genres/create" class="button">➕ Add Genre</a>

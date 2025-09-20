@@ -1,0 +1,23 @@
+<h1><%= genre.name %></h1>
+<p><strong>Description:</strong> <%= genre.description %></p>
+
+<h2>Books in this genre</h2>
+<% if (books.length > 0) { %>
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <a href="/books/<%= book.id %>"><%= book.title %></a> by <%= book.author %>
+        <% if (book.genres && book.genres.length > 0) { %>
+          (<%= book.genres.map(g => g.name).join(", ") %>)
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>No books in this genre.</p>
+<% } %>
+
+<a href="/genres/<%= genre.id %>/update" class="button">✏️ Edit</a>
+<a href="/genres/<%= genre.id %>/delete" class="button danger">🗑 Delete</a>
+<a href="/genres">← Back to Genres</a>
+

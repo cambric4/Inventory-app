@@ -1,0 +1,22 @@
+<h1>Books</h1>
+
+<ul>
+  <% books.forEach(book => { %>
+    <li>
+      <a href="/books/<%= book.id %>"><strong><%= book.title %></strong></a> by <%= book.author %>
+      ($<%= book.price %>)<br>
+
+      <strong>Genres:</strong>
+      <% if (book.genres && book.genres.length > 0) { %>
+        <% book.genres.forEach((genre, index) => { %>
+          <a href="/genres/<%= genre.id %>"><%= genre.name %></a><%= index < book.genres.length - 1 ? ", " : "" %>
+        <% }) %>
+      <% } else { %>
+        No genres
+      <% } %>
+      <br><br>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/books/create" class="button">➕ Add New Book</a> 

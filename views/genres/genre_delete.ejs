@@ -1,0 +1,14 @@
+<<h1>Delete Genre</h1>
+<p>Are you sure you want to delete <strong><%= genre.name %></strong>?</p>
+
+<% if (books.length > 0) { %>
+  <p>This genre has <%= books.length %> books. They will become uncategorized after deletion.</p>
+<% } %>
+
+<form method="POST">
+  <label>Admin Password:</label>
+  <input type="password" name="admin_password" required>
+  <button type="submit" class="danger">Delete</button>
+</form>
+
+<a href="/genres/<%= genre.id %>">← Cancel</a>

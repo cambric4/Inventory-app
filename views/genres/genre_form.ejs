@@ -1,0 +1,13 @@
+<h1><%= genre.id ? "Edit Genre" : "Add Genre" %></h1>
+
+<form method="POST">
+  <label>Name:</label>
+  <input type="text" name="name" value="<%= genre.name || "" %>" required>
+
+  <label>Description:</label>
+  <textarea name="description"><%= genre.description || "" %></textarea>
+
+  <button type="submit">Save</button>
+</form>
+
+<a href="/genres">← Back to Genres</a>

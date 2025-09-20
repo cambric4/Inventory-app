@@ -1,0 +1,32 @@
+<h1><%= book.id ? "Edit Book" : "Add New Book" %></h1>
+
+<form action="<%= book.id ? `/books/${book.id}/update` : '/books/create' %>" method="POST">
+  <label for="title">Title:</label><br>
+  <input type="text" id="title" name="title" value="<%= book.title || '' %>" required><br><br>
+
+  <label for="author">Author:</label><br>
+  <input type="text" id="author" name="author" value="<%= book.author || '' %>" required><br><br>
+
+  <label for="description">Description:</label><br>
+  <textarea id="description" name="description"><%= book.description || '' %></textarea><br><br>
+
+  <label for="price">Price:</label><br>
+  <input type="number" id="price" name="price" step="0.01" value="<%= book.price || '' %>" required><br><br>
+
+  <label for="stock_quantity">Stock Quantity:</label><br>
+  <input type="number" id="stock_quantity" name="stock_quantity" value="<%= book.stock_quantity || '' %>" required><br><br>
+
+  <label>Genres:</label><br>
+  <% genres.forEach(genre => { %>
+    <label>
+      <input type="checkbox" name="genre_ids" value="<%= genre.id %>"
+        <%= book.genre_ids && book.genre_ids.includes(genre.id) ? "checked" : "" %>>
+      <%= genre.name %>
+    </label><br>
+  <% }) %>
+  <br>
+
+  <button type="submit"><%= book.id ? "Update Book" : "Add Book" %></button>
+</form>
+
+<a href="/books">Back to Books</a>
