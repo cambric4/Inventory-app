@@ -1,6 +1,7 @@
 /* === Base Styles === */
 body {
   font-family: system-ui, sans-serif;
+  width: 100%;
   margin: 0;
   padding: 0;
   background: #f8f9fa;
@@ -18,13 +19,24 @@ main {
 
 /* === Header & Navigation === */
 header {
-  background: #343a40;
-  color: #fff;
+  background: lightblue;
+  color: darkblue;
   padding: 1rem 2rem;
+  width:100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.header-content {
+  max-width: 1200px;       
+  margin: 0 auto;          
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header h1 {
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 }
 
 nav ul {
@@ -36,7 +48,7 @@ nav ul {
 }
 
 nav a {
-  color: #ffc107;
+  color: darkblue;
   text-decoration: none;
   font-weight: bold;
 }
@@ -91,7 +103,7 @@ button, a.button {
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 4px;
-  background: #007bff;
+  background: lightblue;
   color: #fff;
   cursor: pointer;
   text-decoration: none;
@@ -100,7 +112,7 @@ button, a.button {
 }
 
 button:hover, a.button:hover {
-  background: #0056b3;
+  background: darkblue;
 }
 
 button.danger {
